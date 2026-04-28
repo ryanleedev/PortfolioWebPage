@@ -1,6 +1,5 @@
 /**
  * data.js — All portfolio content data
- * Edit this file to update your skills, experience, education, and projects.
  */
 
 /* ── TYPING ANIMATION STRINGS ─────────────────── */

@@ -24,8 +24,8 @@ export const TYPING_KO = [
 /* ── SKILLS ───────────────────────────────────── */
 export const SKILLS = [
   {
-    name: 'Python',
-    pct: 88,
+    name: 'Python / Java',
+    pct: 95,
     tags: ['ML', 'pandas', 'OpenCV'],
     projs: [
       { n: 'Alleyway Accident Prevention', d: 'EDA on 7,478 accident records with pandas/geopandas + pydeck GIS visualization.' },
@@ -43,15 +43,15 @@ export const SKILLS = [
   },
   {
     name: 'Machine Learning / GIS',
-    pct: 82,
+    pct: 90,
     tags: ['MOG2', 'GIS', 'scikit-learn'],
     projs: [
       { n: 'MOG2 Object Tracking', d: 'OpenCV-based real-time object detection at Seoul alley intersections.' },
     ],
   },
   {
-    name: 'Java',
-    pct: 78,
+    name: 'Genero',
+    pct: 88,
     tags: ['OOP', 'Agile', 'Spring'],
     projs: [
       { n: 'Record Management System', d: 'RMS for U.S. police agencies at Versaterm. Built in Agile/Sprint environment.' },
@@ -59,15 +59,15 @@ export const SKILLS = [
   },
   {
     name: 'SQL / Database Design',
-    pct: 80,
+    pct: 90,
     tags: ['PostgreSQL', 'MySQL', 'Schema'],
     projs: [
-      { n: 'RMS Database', d: 'Schema design and query optimisation for police record management.' },
+      { n: 'RMS for U.S. police agencies Database', d: 'Schema design and query optimisation for police record management.' },
     ],
   },
   {
     name: 'Linux & Network Admin',
-    pct: 83,
+    pct: 85,
     tags: ['Ubuntu', 'Servers', 'ILS'],
     projs: [
       { n: 'Library IT Infrastructure', d: 'Full server, workstation, ILS, and network management at Halton Hills Library.' },

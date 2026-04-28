@@ -69,7 +69,7 @@
         <!-- <span class="chip"><span class="dot"></span><span data-en="Open to opportunities" data-ko="새로운 기회를 찾는 중">Open to opportunities</span></span> -->
         <span class="chip">GPA 3.97 / 4.0</span>
         <span class="chip">🏆 Big Data Award</span>
-        <span class="chip">⚓ ROK Navy Veteran</span>
+        <span class="chip">⚓ Former Navy</span>
       </div>
     </div>
 
@@ -249,7 +249,7 @@
 
 <!-- ── FOOTER ─────────────────────────────────────── -->
 <footer>
-  <div class="fn2">Ryan Lee</div>
+  <div class="fn2" id="footer-name" style="cursor:default;user-select:none">Ryan Lee</div>
   <div class="fs" data-en="IT Specialist · Greater Toronto Area, Ontario, Canada 🇨🇦" data-ko="IT 전문가 · 캐나다 온타리오 토론토 🇨🇦">
     IT Specialist · Greater Toronto Area, Ontario, Canada 🇨🇦
   </div>
@@ -267,6 +267,25 @@
 
 <!-- Entry point — ES module so import/export works -->
 <script type="module" src="js/main.js"></script>
+
+<!-- Easter egg -->
+<script>
+  (function() {
+    const el = document.getElementById('footer-name');
+    let clicks = 0, timer;
+    el.addEventListener('click', function() {
+      clicks++;
+      clearTimeout(timer);
+      if (clicks === 11) {
+        el.textContent = 'Ryan Lee w EJ';
+        el.style.color = 'var(--blue)';
+        clicks = 0;
+        return;
+      }
+      timer = setTimeout(() => { clicks = 0; }, 11000);
+    });
+  })();
+</script>
 
 </body>
 </html>

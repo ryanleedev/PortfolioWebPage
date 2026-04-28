@@ -79,16 +79,16 @@ function tloop() {
 }
 
 /* ── VISITOR COUNTER ─────────────────────────────── */
-function initVisitor() {
-  const vk = 'rlv3';
-  let vc = parseInt(localStorage.getItem(vk) || '0') + 1;
-  localStorage.setItem(vk, vc);
-  document.getElementById('vc').textContent = vc.toLocaleString();
-  fetch('https://api.ipify.org?format=json')
-    .then(r => r.json())
-    .then(d => document.getElementById('vip').textContent = d.ip)
-    .catch(() => document.getElementById('vip').textContent = 'hidden');
-}
+// function initVisitor() {
+//   const vk = 'rlv3';
+//   let vc = parseInt(localStorage.getItem(vk) || '0') + 1;
+//   localStorage.setItem(vk, vc);
+//   document.getElementById('vc').textContent = vc.toLocaleString();
+//   fetch('https://api.ipify.org?format=json')
+//     .then(r => r.json())
+//     .then(d => document.getElementById('vip').textContent = d.ip)
+//     .catch(() => document.getElementById('vip').textContent = 'hidden');
+// }
 
 /* ── RENDER SKILLS ───────────────────────────────── */
 function renderSkills() {
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCursor();
   initLang();
   tloop();
-  initVisitor();
+  // initVisitor();
   renderSkills();
   renderTimeline();
   renderProjects();

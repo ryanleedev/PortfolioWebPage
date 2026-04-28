@@ -272,13 +272,20 @@ footer{padding:3.5rem 22px;text-align:center;background:var(--bg-section);border
   #cur,#ring{display:none}
 
   nav{padding:0 16px}.nm{display:none}
-  section{padding:70px 16px}#hero{padding:100px 16px 60px}
-  .hero-inner{flex-direction:column-reverse;align-items:center;gap:2rem}
-  .hero-text{text-align:center}
+  section{padding:70px 16px}
+  #hero{padding:100px 16px 100px}
+
+  /* ── Hero Text centre align ── */
+  .hero-inner{flex-direction:column-reverse;align-items:center;gap:2rem;text-align:center}
+  .hero-text{text-align:center;align-items:center;margin-right:0;width:100%}
   .hey{justify-content:center}
   .hctas{justify-content:center}
   .chips{justify-content:center}
   .hphoto{width:200px;height:240px}
+
+  /* ── scroll hint overlap fix ── */
+  .shint{bottom:1.2rem}
+
   .ag{grid-template-columns:1fr}
   .eg,.pg,.fcards{grid-template-columns:1fr}
   .fc.aw{grid-column:span 1}

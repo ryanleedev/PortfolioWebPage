@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ryan Lee — IT Specialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cur"></div>
+<div id="ring"></div>
+
+<!-- Skill Popup -->
+<div class="spop" id="spop">
+  <div class="spt">Related Projects</div>
+  <div id="spb"></div>
+</div>
+
+<!-- Visitor Counter -->
+<div id="vis">
+  <div>visitors <span class="vv" id="vc">—</span></div>
+  <div>your ip <span class="vv" id="vip">—</span></div>
+</div>
+
+<!-- ── NAV ───────────────────────────────────────── -->
+<nav>
+  <a href="#hero" class="nl">Ryan Lee</a>
+  <div class="nm">
+    <a href="#about"      data-en="About"      data-ko="소개">About</a>
+    <a href="#skills"     data-en="Skills"     data-ko="스킬">Skills</a>
+    <a href="#experience" data-en="Experience" data-ko="경력">Experience</a>
+    <a href="#education"  data-en="Education"  data-ko="학력">Education</a>
+    <a href="#projects"   data-en="Projects"   data-ko="프로젝트">Projects</a>
+  </div>
+  <div class="nr">
+    <button class="nb lng" id="lb">KO</button>
+  </div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────── -->
+<section id="hero">
+  <div class="hbg"></div>
+
+  <div class="hero-inner">
+    <!-- Left: text -->
+    <div class="hero-text">
+      <div class="hey" data-en="Greater Toronto Area · Ontario · Canada" data-ko="캐나다 온타리오 조지타운">
+        Greater Toronto Area · Ontario · Canada
+      </div>
+      <h1>
+        <span class="s1">Ryan Lee</span>
+        <span class="s2" data-en="Jeonghyeon (이정현)" data-ko="이정현">Jeonghyeon (이정현)</span>
+      </h1>
+      <div class="htyp"><span id="ttext"></span><span class="tc">|</span></div>
+      <p class="htag"
+         data-en="IT Specialist. Developer. Big Data award winner.<br>A unique blend of <em>naval discipline</em>, <em>engineering insight,</em> and <em>IT expertise.</em>"
+         data-ko="IT 전문가. 개발자. 빅데이터 수상자.<br><em>해군 출신, 엔지니어, IT 스페셜리스트.</em>">
+        IT Specialist. Developer. Big Data award winner.<br>
+        A unique blend of <em>naval discipline</em>, <em>engineering insight,</em> and <em>IT expertise.</em>
+      </p>
+      <div class="hctas">
+        <a href="#experience" class="ba f" data-en="View Experience"    data-ko="경력 보기">View Experience</a>
+      </div>
+      <div class="chips">
+        <span class="chip"><span class="dot"></span><span data-en="Open to opportunities" data-ko="새로운 기회를 찾는 중">Open to opportunities</span></span>
+        <span class="chip">GPA 3.97 / 4.0</span>
+        <span class="chip">🏆 Big Data Award</span>
+        <span class="chip">⚓ ROK Navy Veteran</span>
+      </div>
+    </div>
+
+    <!-- Right: photo -->
+    <div class="hphoto-wrap">
+      <img src="images/profile.jpg" alt="Ryan Lee" class="hphoto"
+           onerror="this.parentElement.style.display='none'" />
+    </div>
+  </div>
+
+  <div class="shint"><span>scroll</span><div class="shev"></div></div>
+</section>
+
+<div class="div"></div>
+
+<!-- ── WIT BANNER ─────────────────────────────────── -->
+<section id="wit" style="padding:70px 22px;text-align:center">
+  <div style="max-width:600px;margin:0 auto" class="rv">
+    <div class="wt"
+         data-en='From <span class="gm">mechanical engineer</span> to <span class="gm">IT.</span>'
+         data-ko='<span class="gm">기계공학</span>에서 <span class="gm">IT</span>까지.'>
+      From <span class="gm">mechanical engineer</span> to <span class="gm">IT.</span>
+    </div>
+    <p class="wb"
+       data-en="Served in the ROK Navy. Engineered EV batteries. Built software for U.S. police. Now leads IT at a public library. Some careers have a clear theme. <em>This one has range.</em>"
+       data-ko="대한민국 해군 복무. 전기차 배터리 엔지니어링. 미국 경찰을 위한 소프트웨어 개발. 현재는 공공 도서관 IT 리더. 어떤 커리어는 일관성이 있죠. <em>이건 다양성이 있습니다.</em>">
+      Served in the ROK Navy. Engineered EV batteries. Built software for U.S. police.
+      Now leads IT at a public library. Some careers have a clear theme. <em>This one has range.</em>
+    </p>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ── ABOUT ──────────────────────────────────────── -->
+<section id="about">
+  <div class="si">
+    <div class="sey" data-en="01 — About" data-ko="01 — 소개">01 — About</div>
+    <h2 class="st rv"
+        data-en='The full <span class="m">story.</span>'
+        data-ko='전체 <span class="m">스토리.</span>'>
+      The full <span class="m">story.</span>
+    </h2>
+    <div class="ag">
+      <div class="ac rv">
+        <p data-en="I'm <em>Ryan Lee</em> — an IT Specialist leading technology at Halton Hills Public Library. My path is a bit unconventional: I started with a B.Eng in Mechanical Engineering & Robotics, served as a Navy Petty Officer, then pivoted fully into software and IT."
+           data-ko="저는 <em>이정현 (Ryan Lee)</em>입니다. Halton Hills 공공 도서관에서 IT를 이끌고 있습니다. 기계공학 학사, 해군 하사관을 거쳐 소프트웨어와 IT로 완전히 전향한 독특한 경력을 가지고 있습니다.">
+          I'm <em>Ryan Lee</em> — an IT Specialist leading technology at Halton Hills Public Library.
+          My path is a bit unconventional: I started with a B.Eng in Mechanical Engineering & Robotics,
+          served as a Navy Petty Officer, then pivoted fully into software and IT.
+        </p>
+        <p data-en="At Algonquin College I earned a <em>3.97 GPA</em> and a spot on the Dean's Honour List, then joined Versaterm to build Record Management Systems for U.S. police agencies. Along the way, I won a <em>Big Data competition</em> for using OpenCV and GIS to tackle traffic accidents in Seoul."
+           data-ko="Algonquin College에서 <em>GPA 3.97</em>과 학장 우수상을 받고, Versaterm에서 미국 경찰용 기록 관리 시스템을 개발했습니다. 또한 OpenCV와 GIS를 활용한 서울 교통사고 분석으로 <em>빅데이터 대회에서 수상</em>했습니다.">
+          At Algonquin College I earned a <em>3.97 GPA</em> and a spot on the Dean's Honour List,
+          then joined Versaterm to build Record Management Systems for U.S. police agencies.
+          Along the way, I won a <em>Big Data competition</em> for using OpenCV and GIS to tackle traffic accidents in Seoul.
+        </p>
+        <p data-en="I'm drawn to systems that <em>actually matter</em> — whether it's a CCTV warning system preventing alley accidents, or a library server that thousands of people depend on daily."
+           data-ko="저는 실제로 <em>중요한 시스템</em>에 끌립니다 — 골목 사고를 예방하는 CCTV 경고 시스템이든, 수천 명이 매일 의존하는 도서관 서버든.">
+          I'm drawn to systems that <em>actually matter</em> — whether it's a CCTV warning system
+          preventing alley accidents, or a library server that thousands of people depend on daily.
+        </p>
+      </div>
+
+      <div class="fcards rv">
+        <div class="fc"><div class="fn">3.97</div><div class="fl">GPA / 4.0<br>Dean's Honour List</div></div>
+        <div class="fc"><div class="fn">2</div><div class="fl">Academic credentials</div></div>
+        <div class="fc"><div class="fn">5+</div><div class="fl">Years across<br>diverse industries</div></div>
+        <div class="fc"><div class="fn">⚓</div><div class="fl">ROK Navy<br>Petty Officer 2nd</div></div>
+        <div class="fc aw">
+          <div style="font-size:1.3rem;margin-bottom:.5rem">🏆</div>
+          <div class="an" data-en="Big Data Competition Winner" data-ko="빅데이터 대회 수상">Big Data Competition Winner</div>
+          <div class="ad"
+               data-en="Alleyway Accident Prevention with MOG2 + GIS — 7,478 accidents analyzed in Seoul using OpenCV, pandas, and pydeck."
+               data-ko="MOG2 + GIS를 활용한 골목길 사고 예방 — OpenCV, pandas, pydeck으로 서울 7,478건 분석.">
+            Alleyway Accident Prevention with MOG2 + GIS — 7,478 accidents analyzed in Seoul using OpenCV, pandas, and pydeck.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ── SKILLS ─────────────────────────────────────── -->
+<section id="skills">
+  <div class="si">
+    <div class="sey" data-en="02 — Skills" data-ko="02 — 스킬">02 — Skills</div>
+    <h2 class="st rv"
+        data-en='What I actually <span class="m">know.</span>'
+        data-ko='실제로 <span class="m">아는 것들.</span>'>
+      What I actually <span class="m">know.</span>
+    </h2>
+    <p class="ssub rv"
+       data-en="Hover any skill to see related projects. Self-assessed percentages — take with appropriate skepticism."
+       data-ko="스킬에 마우스를 올리면 관련 프로젝트가 표시됩니다. 자체 평가 수치입니다.">
+      Hover any skill to see related projects. Self-assessed percentages — take with appropriate skepticism.
+    </p>
+    <div class="skl rv" id="skl"></div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ── EXPERIENCE ─────────────────────────────────── -->
+<section id="experience">
+  <div class="si">
+    <div class="sey" data-en="03 — Experience" data-ko="03 — 경력">03 — Experience</div>
+    <h2 class="st rv"
+        data-en='Where I&#39;ve <span class="m">been.</span>'
+        data-ko='내가 <span class="m">거쳐온 곳들.</span>'>
+      Where I've <span class="m">been.</span>
+    </h2>
+    <p class="ssub rv"
+       data-en="Click any role to expand. All equally important. Except the Navy one — that one had actual missiles."
+       data-ko="클릭하면 펼쳐집니다. 다 중요하지만 해군 시절엔 진짜 미사일이 있었습니다.">
+      Click any role to expand. All equally important. Except the Navy one — that one had actual missiles.
+    </p>
+    <div class="tl rv" id="tl"></div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ── EDUCATION ──────────────────────────────────── -->
+<section id="education">
+  <div class="si">
+    <div class="sey" data-en="04 — Education" data-ko="04 — 학력">04 — Education</div>
+    <h2 class="st rv"
+        data-en='Where I <span class="m">learned.</span>'
+        data-ko='배움을 <span class="m">얻은 곳.</span>'>
+      Where I <span class="m">learned.</span>
+    </h2>
+    <div class="eg">
+      <a class="ec rv"
+         href="https://www.algonquincollege.com/sat/program/computer-programming/#summary"
+         target="_blank"
+         style="text-decoration:none;color:inherit;display:block;position:relative">
+        <div class="plnk">↗</div>
+        <div class="esc">Algonquin College</div>
+        <div class="edg" data-en="Computer Programming & Information Technology" data-ko="컴퓨터 프로그래밍 및 정보기술">Computer Programming & Information Technology</div>
+        <div class="epr">Sep 2022 — Aug 2024 · Ottawa, ON 🇨🇦</div>
+        <div class="eps">
+          <span class="ep gpa">★ 3.97 / 4.0</span>
+          <span class="ep hon">🎖 Dean's Honour List</span>
+        </div>
+        <div class="edt"
+             data-en="Full-stack development, data structures, algorithms, database design, Linux admin, networking, and agile — all in two years."
+             data-ko="풀스택 개발, 자료구조, 알고리즘, DB 설계, 리눅스 관리, 네트워크, 애자일 — 모두 2년 안에.">
+          Full-stack development, data structures, algorithms, database design, Linux admin, networking, and agile — all in two years.
+        </div>
+      </a>
+
+      <a class="ec rv"
+         href="https://me.inu.ac.kr/me_eng/11407/subview.do"
+         target="_blank"
+         style="text-decoration:none;color:inherit;display:block;position:relative">
+        <div class="plnk">↗</div>
+        <div class="esc">Incheon National University</div>
+        <div class="edg" data-en="B.Eng — Mechanical Engineering & Robotics" data-ko="공학사 — 기계공학 및 로봇공학">B.Eng — Mechanical Engineering & Robotics</div>
+        <div class="epr">Mar 2016 — Aug 2020 · Incheon, Korea 🇰🇷</div>
+        <div class="eps"></div>
+        <div class="edt"
+             data-en="Robotics, mechanical design, manufacturing. Strong math and physics foundations — surprisingly useful for debugging production bugs at 2am."
+             data-ko="로봇공학, 기계 설계, 제조. 탄탄한 수학·물리 기반 — 새벽 2시 버그 잡을 때도 의외로 유용합니다.">
+          Robotics, mechanical design, manufacturing. Strong math and physics foundations — surprisingly useful for debugging production bugs at 2am.
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ── PROJECTS ───────────────────────────────────── -->
+<section id="projects">
+  <div class="si">
+    <div class="sey" data-en="05 — Projects" data-ko="05 — 프로젝트">05 — Projects</div>
+    <h2 class="st rv"
+        data-en='Things I&#39;ve <span class="m">built.</span>'
+        data-ko='내가 <span class="m">만든 것들.</span>'>
+      Things I've <span class="m">built.</span>
+    </h2>
+    <div class="pg rv" id="pg"></div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ── FOOTER ─────────────────────────────────────── -->
+<footer>
+  <div class="fn2">Ryan Lee</div>
+  <div class="fs" data-en="IT Specialist · Greater Toronto Area, Ontario, Canada 🇨🇦" data-ko="IT 전문가 · 캐나다 온타리오 조지타운 🇨🇦">
+    IT Specialist · Greater Toronto Area, Ontario, Canada 🇨🇦
+  </div>
+  <div class="fls">
+    <a href="mailto:lee00835@algonquinlive.com">Email</a>
+    <a href="https://linkedin.com/in/jhlee-ryan/" target="_blank">LinkedIn</a>
+    <a href="https://github.com/ryanleedev" target="_blank">GitHub</a>
+  </div>
+  <div style="margin-top:1.8rem;font-size:.7rem;color:var(--text3)"
+       data-en="Copyright © 2025 Jeonghyeon (Ryan) Lee."
+       data-ko="© 2025 이정현 (Ryan Lee).">
+    Copyright © 2025 Jeonghyeon (Ryan) Lee.
+  </div>
+</footer>
+
+<!-- Entry point — ES module so import/export works -->
+<script type="module" src="js/main.js"></script>
+
+</body>
+</html>

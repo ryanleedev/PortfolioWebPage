@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alleyway Accident Prevention — Ryan Lee</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { cursor: auto; }
+    #cur, #ring, #vis { display: none; }
+
+    /* ── BACK NAV ────────────────────────────────── */
+    .back-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 48px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 22px;
+      backdrop-filter: saturate(180%) blur(20px);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--nav-border);
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .78rem; color: var(--text2); text-decoration: none; transition: color .2s;
+    }
+    .back-link:hover { color: var(--blue); }
+    .page-nav-links { display: flex; gap: 1.6rem; }
+    .page-nav-links a {
+      font-size: .73rem; color: var(--text2); text-decoration: none; transition: color .2s;
+    }
+    .page-nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ────────────────────────────────────── */
+    .proj-hero {
+      padding: 100px 22px 70px; background: var(--bg);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .hbg {
+      position: absolute; width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,113,227,.05) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none;
+    }
+    .proj-eyebrow {
+      font-size: .72rem; font-weight: 500; color: var(--blue);
+      letter-spacing: .12em; text-transform: uppercase;
+      display: flex; align-items: center; justify-content: center; gap: .6rem;
+      margin-bottom: 1rem;
+    }
+    .proj-eyebrow::before, .proj-eyebrow::after {
+      content: ''; width: 32px; height: 1px; background: var(--blue); opacity: .35;
+    }
+    .proj-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 700;
+      letter-spacing: -.04em; line-height: 1.1; margin-bottom: 1rem; color: var(--text);
+    }
+    .proj-hero h1 .m { color: var(--text3); font-weight: 200; }
+    .proj-subtitle {
+      font-size: clamp(.88rem, 1.6vw, 1.05rem); color: var(--text2);
+      font-weight: 300; max-width: 600px; margin: 0 auto 1.8rem; line-height: 1.75;
+    }
+    .proj-subtitle em { font-style: normal; color: var(--text); font-weight: 500; }
+    .proj-award {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--gold-bg); border: 1px solid var(--gold-border);
+      color: var(--gold); font-size: .8rem; font-weight: 500;
+      padding: .45rem 1.1rem; border-radius: 980px; margin-bottom: 1.8rem;
+    }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; }
+    .proj-tag {
+      font-size: .72rem; font-family: 'SF Mono', monospace; color: var(--text3);
+      background: rgba(0,0,0,.04); border: 1px solid rgba(0,0,0,.1);
+      padding: .2rem .7rem; border-radius: 6px;
+    }
+
+    /* ── STAT STRIP ──────────────────────────────── */
+    .stat-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider);
+      background: var(--bg-section);
+    }
+    .stat-item {
+      padding: 1.8rem 1.2rem; text-align: center;
+      border-right: 1px solid var(--divider);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-size: 2rem; font-weight: 700; letter-spacing: -.04em; color: var(--text); line-height: 1; margin-bottom: .3rem; }
+    .stat-lbl { font-size: .72rem; color: var(--text2); line-height: 1.5; }
+
+    /* ── BODY ────────────────────────────────────── */
+    .proj-body { max-width: 860px; margin: 0 auto; padding: 0 22px 80px; }
+
+    .proj-section { padding: 60px 0; border-bottom: 1px solid var(--divider); }
+    .proj-section:last-child { border-bottom: none; }
+    .section-eyebrow {
+      font-size: .7rem; font-weight: 500; color: var(--blue);
+      letter-spacing: .12em; text-transform: uppercase; margin-bottom: .7rem;
+    }
+    .proj-section h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700;
+      letter-spacing: -.035em; line-height: 1.1; margin-bottom: 1.2rem; color: var(--text);
+    }
+    .proj-section h2 .m { color: var(--text3); font-weight: 200; }
+    .proj-section h3 {
+      font-size: 1rem; font-weight: 600; letter-spacing: -.02em;
+      color: var(--text); margin: 1.8rem 0 .6rem;
+    }
+    .proj-section p {
+      font-size: .9rem; color: var(--text2); line-height: 1.85;
+      font-weight: 300; margin-bottom: .9rem;
+    }
+    .proj-section p em { font-style: normal; color: var(--text); font-weight: 500; }
+    .proj-section ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1rem; }
+    .proj-section ul li {
+      font-size: .88rem; color: var(--text2); line-height: 1.7;
+      padding-left: 1rem; position: relative; font-weight: 300;
+    }
+    .proj-section ul li::before {
+      content: ''; position: absolute; left: 0; top: .65em;
+      width: 4px; height: 4px; border-radius: 50%; background: var(--blue); opacity: .5;
+    }
+
+    /* ── FIGURE ──────────────────────────────────── */
+    .fig-wrap {
+      margin: 2rem 0; border-radius: 18px; overflow: hidden;
+      border: 1px solid var(--card-border); box-shadow: 0 4px 24px rgba(0,0,0,.08);
+      background: var(--card-bg);
+    }
+    .fig-wrap img { width: 100%; display: block; object-fit: cover; }
+    .fig-caption {
+      padding: .75rem 1.2rem; font-size: .75rem; color: var(--text3);
+      font-family: 'SF Mono', monospace; border-top: 1px solid var(--divider);
+    }
+    .fig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; margin: 2rem 0; }
+
+    /* ── GIS LINKS ───────────────────────────────── */
+    .gis-links { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin: 1.5rem 0; }
+    .gis-card {
+      display: flex; align-items: center; gap: .9rem;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 14px; padding: 1rem 1.2rem; text-decoration: none;
+      color: inherit; transition: all .3s;
+    }
+    .gis-card:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(0,113,227,.1); }
+    .gis-card:hover .gis-arrow { color: var(--blue); }
+    .gis-ico { font-size: 1.4rem; flex-shrink: 0; }
+    .gis-name { font-size: .88rem; font-weight: 500; color: var(--text); margin-bottom: .1rem; }
+    .gis-desc { font-size: .72rem; color: var(--text3); }
+    .gis-arrow { font-size: .9rem; color: var(--text3); transition: color .2s; }
+
+    /* ── STEPS ───────────────────────────────────── */
+    .steps { display: flex; flex-direction: column; gap: .6rem; margin: 1.5rem 0; }
+    .step {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 1.2rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 1.2rem; transition: all .3s;
+    }
+    .step:hover { border-color: rgba(0,0,0,.15); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
+    .step-num { font-family: 'SF Mono', monospace; font-size: .68rem; color: var(--blue); flex-shrink: 0; padding-top: .15rem; width: 20px; }
+    .step h3 { font-size: .92rem; font-weight: 600; color: var(--text); margin: 0 0 .25rem; }
+    .step p { font-size: .82rem; color: var(--text2); line-height: 1.65; margin: 0; font-weight: 300; }
+
+    /* ── CALLOUT ─────────────────────────────────── */
+    .callout {
+      background: linear-gradient(135deg, rgba(0,113,227,.04), rgba(0,113,227,.02));
+      border: 1px solid rgba(0,113,227,.15);
+      border-radius: 20px; padding: 1.8rem 2rem; margin: 2rem 0;
+    }
+    .callout p { margin: 0; font-size: .9rem; color: var(--text2); line-height: 1.85; font-weight: 300; }
+    .callout p em { font-style: normal; color: var(--text); font-weight: 500; }
+    .callout-label {
+      font-size: .68rem; font-weight: 500; color: var(--blue);
+      letter-spacing: .1em; text-transform: uppercase; margin-bottom: .6rem;
+    }
+
+    /* ── RESULT HIGHLIGHT ────────────────────────── */
+    .result-highlight {
+      background: linear-gradient(135deg, var(--gold-bg), rgba(175,140,0,.03));
+      border: 1px solid var(--gold-border);
+      border-radius: 20px; padding: 2.2rem; margin: 2rem 0; text-align: center;
+    }
+    .result-highlight .big { font-size: 2.8rem; margin-bottom: .6rem; }
+    .result-highlight h3 { font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: .6rem; letter-spacing: -.02em; }
+    .result-highlight p { font-size: .88rem; color: var(--text2); line-height: 1.75; font-weight: 300; max-width: 520px; margin: 0 auto; }
+
+    /* ── TECH GRID ───────────────────────────────── */
+    .tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin: 1.5rem 0; }
+    .tech-item {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: .9rem 1rem;
+      display: flex; align-items: center; gap: .7rem; transition: all .3s;
+    }
+    .tech-item:hover { border-color: rgba(0,0,0,.15); }
+    .tech-ico { font-size: 1.2rem; flex-shrink: 0; }
+    .tech-name { font-size: .83rem; font-weight: 500; color: var(--text); }
+    .tech-desc { font-size: .7rem; color: var(--text3); }
+
+    /* ── CODE LINK ───────────────────────────────── */
+    .code-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .8rem; color: var(--blue); text-decoration: none;
+      border: 1px solid rgba(0,113,227,.25); border-radius: 980px;
+      padding: .4rem 1rem; transition: all .2s; margin: .5rem 0;
+    }
+    .code-link:hover { background: rgba(0,113,227,.05); border-color: var(--blue); }
+
+    /* ── REFS ────────────────────────────────────── */
+    .refs { display: flex; flex-direction: column; gap: .5rem; margin-top: 1rem; }
+    .ref-item {
+      font-size: .82rem; color: var(--text2); line-height: 1.6;
+      padding: .7rem 1rem; background: var(--card-bg);
+      border: 1px solid var(--card-border); border-radius: 10px; font-weight: 300;
+    }
+    .ref-item a { color: var(--blue); text-decoration: none; }
+    .ref-item a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    .proj-footer {
+      text-align: center; padding: 3.5rem 22px;
+      background: var(--bg-section); border-top: 1px solid var(--divider);
+    }
+    .proj-footer p { font-size: .85rem; color: var(--text2); margin-bottom: 1.2rem; font-weight: 300; }
+
+    /* ── REVEAL ──────────────────────────────────── */
+    .rv { opacity: 0; transform: translateY(20px); transition: opacity .65s cubic-bezier(.4,0,.2,1), transform .65s cubic-bezier(.4,0,.2,1); }
+    .rv.vis { opacity: 1; transform: translateY(0); }
+
+    @media(max-width: 768px) {
+      .stat-strip { grid-template-columns: repeat(2, 1fr); }
+      .fig-grid { grid-template-columns: 1fr; }
+      .gis-links { grid-template-columns: 1fr; }
+      .tech-grid { grid-template-columns: repeat(2, 1fr); }
+      .page-nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── BACK NAV ──────────────────────────────────── -->
+<nav class="back-nav">
+  <a href="index.html" class="back-link">← Back to Portfolio</a>
+  <div class="page-nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#data">Data & Tools</a>
+    <a href="#gis">GIS Analysis</a>
+    <a href="#opencv">OpenCV MOG2</a>
+    <a href="#result">Result</a>
+    <a href="#refs">References</a>
+  </div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────── -->
+<div class="proj-hero" id="top">
+  <div class="hbg"></div>
+  <div class="proj-eyebrow">Big Data Award Project · Gangseo-gu, Seoul, Korea</div>
+  <h1>Prevention of Alleyway<br><span class="m">Accidents with MOG2 & GIS</span></h1>
+  <p class="proj-subtitle">
+    Analyzing <em>7,478 traffic accidents</em> in Seoul to propose real-time CCTV warning systems
+    at alley intersections — combining <em>OpenCV MOG2 object detection</em> and <em>GIS spatial analysis.</em>
+  </p>
+  <div class="proj-award">🏆 Awarded 3rd Place in Big Data Competition</div>
+  <div class="proj-tags">
+    <span class="proj-tag">Python</span>
+    <span class="proj-tag">OpenCV MOG2</span>
+    <span class="proj-tag">GIS</span>
+    <span class="proj-tag">pandas</span>
+    <span class="proj-tag">geopandas</span>
+    <span class="proj-tag">pydeck</span>
+    <span class="proj-tag">TAAS Dataset</span>
+    <span class="proj-tag">Seoul Open Data</span>
+  </div>
+</div>
+
+<!-- ── STAT STRIP ────────────────────────────────── -->
+<div class="stat-strip">
+  <div class="stat-item rv">
+    <div class="stat-num">7,478</div>
+    <div class="stat-lbl">Accident records<br>analyzed</div>
+  </div>
+  <div class="stat-item rv">
+    <div class="stat-num">5yr</div>
+    <div class="stat-lbl">TAAS dataset<br>2016–2020</div>
+  </div>
+  <div class="stat-item rv">
+    <div class="stat-num">$32B</div>
+    <div class="stat-lbl">Annual social cost<br>of accidents in Korea</div>
+  </div>
+  <div class="stat-item rv">
+    <div class="stat-num">57%</div>
+    <div class="stat-lbl">Traffic fatalities<br>on living roads</div>
+  </div>
+</div>
+
+<!-- ── BODY ──────────────────────────────────────── -->
+<div class="proj-body">
+
+  <!-- 01 OVERVIEW -->
+  <div class="proj-section rv" id="overview">
+    <div class="section-eyebrow">01 — Overview</div>
+    <h2>Background <span class="m">& Purpose</span></h2>
+    <p>
+      A traffic accident is any case that creates a traffic hazard. The social cost of traffic accidents
+      is estimated at <em>$32 billion USD a year</em> in South Korea. According to data from the Seoul
+      Metropolitan Police Agency, <em>Gangseo-gu</em> is among the districts with the most frequent traffic
+      fatalities in Seoul (2020). According to 2017 Traffic Statistics, fatalities on <em>living roads
+      reached 57%</em> of all traffic fatality cases.
+    </p>
+    <p>
+      To make Gangseo-gu safer, this project analyzed the causes of traffic accidents from 2016 to 2020
+      and proposed a data-backed solution to reduce accidents at alleyway intersections.
+    </p>
+
+    <div class="callout">
+      <div class="callout-label">Project Goal</div>
+      <p>
+        When a vehicle approaches an alleyway intersection where visibility is not secured, the existing
+        CCTV camera on the road will <em>detect moving objects in real time and activate a warning light</em>
+        to alert drivers and pedestrians coming from the crossing direction — before a collision occurs.
+      </p>
+    </div>
+
+    <div class="fig-wrap rv">
+      <img src="https://ryanleedev.github.io/PersonalWebPage/resources/images/alleyway.jpg"
+           alt="Korean alleyway intersection" />
+      <div class="fig-caption">Figure 1. Korean alleyway — narrow intersection with near-zero driver visibility</div>
+    </div>
+  </div>
+
+  <!-- 02 DATA & TOOLS -->
+  <div class="proj-section rv" id="data">
+    <div class="section-eyebrow">02 — Data & Tools</div>
+    <h2>Analysis data <span class="m">& tools</span></h2>
+
+    <h3>🚗 Traffic Accidents in Gangseo-gu (TAAS)</h3>
+    <ul>
+      <li>Utilized <em>TAAS Traffic Accident Analysis System</em> traffic data</li>
+      <li>Period: <em>2016–2020</em> (5 years of records)</li>
+      <li>Includes details and GPS coordinates of every accident in Gangseo-gu</li>
+      <li>Each accident's situation, type, and severity recorded in full</li>
+      <li>EDA performed with <em>pandas and geopandas</em>; coordinates converted for pydeck</li>
+    </ul>
+
+    <h3>👥 Population Density of Gangseo-gu (Seoul Open Data)</h3>
+    <ul>
+      <li>Source: <em>Seoul Open Data Plaza</em> — population density statistics (2020)</li>
+      <li>Population density measured as number of people per km²</li>
+      <li>Population and area data for each administrative dong in Gangseo-gu</li>
+    </ul>
+
+    <div class="tech-grid rv">
+      <div class="tech-item">
+        <span class="tech-ico">🐍</span>
+        <div><div class="tech-name">Python</div><div class="tech-desc">Core language</div></div>
+      </div>
+      <div class="tech-item">
+        <span class="tech-ico">👁️</span>
+        <div><div class="tech-name">OpenCV MOG2</div><div class="tech-desc">Object detection</div></div>
+      </div>
+      <div class="tech-item">
+        <span class="tech-ico">🗺️</span>
+        <div><div class="tech-name">pydeck</div><div class="tech-desc">3D GIS maps</div></div>
+      </div>
+      <div class="tech-item">
+        <span class="tech-ico">📊</span>
+        <div><div class="tech-name">pandas</div><div class="tech-desc">Data analysis & EDA</div></div>
+      </div>
+      <div class="tech-item">
+        <span class="tech-ico">🌐</span>
+        <div><div class="tech-name">geopandas</div><div class="tech-desc">Spatial data processing</div></div>
+      </div>
+      <div class="tech-item">
+        <span class="tech-ico">📡</span>
+        <div><div class="tech-name">TAAS + Seoul Open Data</div><div class="tech-desc">Source datasets</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 GIS ANALYSIS -->
+  <div class="proj-section rv" id="gis">
+    <div class="section-eyebrow">03 — GIS Analysis</div>
+    <h2>Analysis results <span class="m">& insights</span></h2>
+
+    <div class="fig-wrap rv">
+      <img src="https://ryanleedev.github.io/PersonalWebPage/resources/images/accidentPopulation.jpg"
+           alt="Gangseo-gu Traffic Accident Area and Population Density" />
+      <div class="fig-caption">Figure 2. Gangseo-gu Traffic Accident Area and Population Density by Dong (District)</div>
+    </div>
+
+    <p>
+      GIS analysis was used to visualize the distribution of traffic accidents and population density
+      per administrative dong, and to analyze the correlation between the two.
+      The analysis focused on both <em>car-to-person</em> and <em>car-to-car</em> accident types.
+    </p>
+
+    <div class="gis-links">
+      <a href="https://ryanleedev.github.io/PersonalWebPage/resources/objectDetection/accident.html"
+         target="_blank" class="gis-card">
+        <span class="gis-ico">📍</span>
+        <div class="gis-info">
+          <div class="gis-name">Accident GIS Map</div>
+          <div class="gis-desc">Interactive accident location visualization</div>
+        </div>
+        <span class="gis-arrow">↗</span>
+      </a>
+      <a href="https://ryanleedev.github.io/PersonalWebPage/resources/objectDetection/population.html"
+         target="_blank" class="gis-card">
+        <span class="gis-ico">👥</span>
+        <div class="gis-info">
+          <div class="gis-name">Population GIS Map</div>
+          <div class="gis-desc">Population density overlay visualization</div>
+        </div>
+        <span class="gis-arrow">↗</span>
+      </a>
+    </div>
+
+    <h3>Car-to-Person Accidents by District</h3>
+    <div class="fig-wrap rv">
+      <img src="https://ryanleedev.github.io/PersonalWebPage/resources/images/cartohuman.png"
+           alt="Car to Person accident count by district" />
+      <div class="fig-caption">Figure 3. Car-to-Person accident count by district (2016–2020)</div>
+    </div>
+    <p>
+      The administrative dong with the highest number of car-to-person accidents was <em>Hwagok 1-dong</em>,
+      followed by Gayang 1-dong and Banghwa 2-dong. Hwagok 1-dong is a dense residential area —
+      confirming a <em>strong correlation between population density and car-to-person accident rates.</em>
+    </p>
+
+    <h3>Car-to-Car Accidents by District</h3>
+    <div class="fig-wrap rv">
+      <img src="https://ryanleedev.github.io/PersonalWebPage/resources/images/cartocar.png"
+           alt="Car to Car accident count by district" />
+      <div class="fig-caption">Figure 4. Car-to-Car accident count by district (2016–2020)</div>
+    </div>
+    <p>
+      In lower-density areas like Gayang 1-dong, Banghwa 2-dong and Gonghang-dong, <em>car-to-car
+      accidents are relatively more common</em> — suggesting different risk profiles based on land-use type.
+    </p>
+    <p>
+      The total number of traffic accidents in Gangseo-gu was <em>7,478</em>. The top 6 dongs alone
+      accounted for 2,903 — nearly 39% of all accidents.
+    </p>
+
+    <h3>Hwagok 1-dong Deep Dive</h3>
+    <div class="fig-wrap rv">
+      <img src="https://ryanleedev.github.io/PersonalWebPage/resources/images/hwagok1.png"
+           alt="Hwagok 1-dong Living Road Accident Visualization" />
+      <div class="fig-caption">Figure 5. Hwagok 1-dong alleyway accident locations — red: car-to-person, white: car-to-car</div>
+    </div>
+    <p>
+      Hwagok 1-dong is predominantly composed of living roads. Accidents cluster heavily at
+      <em>three-way and four-way alleyway intersections</em> (red-circled in Figure 5) — confirming that
+      <em>intersection blind spots are the core driver of accident frequency.</em>
+    </p>
+
+    <div class="callout">
+      <div class="callout-label">Key Finding</div>
+      <p>
+        Most alley accidents are caused by <em>collisions with people or vehicles from crossing directions</em>
+        due to near-zero visibility. Cars parked on both sides further reduce visibility and aggravate the problem.
+        The solution: use existing CCTV infrastructure to <em>detect approaching objects and trigger warning lights</em>
+        at the highest-risk intersections — before a collision, not after.
+      </p>
+    </div>
+  </div>
+
+  <!-- 04 OPENCV MOG2 -->
+  <div class="proj-section rv" id="opencv">
+    <div class="section-eyebrow">04 — OpenCV MOG2</div>
+    <h2>Object tracking <span class="m">algorithm</span></h2>
+
+    <p>
+      Among real-time background removal methods, the <em>Gaussian Mixture Model (MOG2)</em> is effective
+      and widely used. MOG2 handles slow lighting changes, periodic background movement, slow-moving objects,
+      long-term scene changes, and camera noise — all common in outdoor CCTV environments.
+    </p>
+    <p>
+      MOG2 compares each incoming frame against previous frames, removes the static background (set to black),
+      and extracts moving objects (expressed in white). Morphological operations then clean and highlight
+      the detected objects to produce reliable outlines. <em>When an outline crosses the warning red line,
+      the warning system activates.</em>
+    </p>
+
+    <a href="https://github.com/ryanleedev/OpenCV_ObjectDetection/tree/main/GanseoProject/OpenCV"
+       target="_blank" class="code-link">⌥ View Source Code on GitHub ↗</a>
+
+    <div class="fig-wrap rv" style="margin-top:1.5rem">
+      <img src="https://ryanleedev.github.io/PersonalWebPage/resources/images/opencvresult.png"
+           alt="Image processing flowchart" />
+      <div class="fig-caption">Figure 6. Image processing flowchart — from raw frame to warning trigger</div>
+    </div>
+
+    <h3>Morphological Techniques</h3>
+    <p>
+      To accurately track objects, noise must be removed while the target object is preserved and expanded.
+      Three techniques are applied in sequence:
+    </p>
+
+    <div class="fig-wrap rv">
+      <img src="https://ryanleedev.github.io/PersonalWebPage/resources/images/opvencvprocess.png"
+           alt="Erosion and Dilation" />
+      <div class="fig-caption">Figure 7. Erosion and Dilation — the building blocks of morphological processing</div>
+    </div>
+
+    <div class="fig-grid rv">
+      <div class="fig-wrap" style="margin:0">
+        <img src="https://ryanleedev.github.io/PersonalWebPage/resources/images/closing.png"
+             alt="Closing technique" style="max-height:260px;object-fit:contain;background:#fff;padding:1rem" />
+        <div class="fig-caption">Figure 8. Closing — fills holes without amplifying noise</div>
+      </div>
+      <div class="fig-wrap" style="margin:0">
+        <img src="https://ryanleedev.github.io/PersonalWebPage/resources/images/opening.png"
+             alt="Opening technique" style="max-height:260px;object-fit:contain;background:#fff;padding:1rem" />
+        <div class="fig-caption">Figure 9. Opening — removes noise while preserving object shape</div>
+      </div>
+    </div>
+
+    <div class="steps rv">
+      <div class="step">
+        <span class="step-num">01</span>
+        <div>
+          <h3>Closing Technique</h3>
+          <p>Dilation followed by erosion — expands the object first to fill internal holes, then erodes
+          back to original size without increasing surrounding noise. Green object is emphasized; red noise stays minimal.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <div>
+          <h3>Opening Technique</h3>
+          <p>Erosion followed by dilation — removes surrounding noise while minimizing loss of the object itself.
+          Object shape is preserved; red noise is effectively eliminated.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <div>
+          <h3>Dilation × 2</h3>
+          <p>Applied twice after closing and opening to expand distant objects — without this,
+          small far-away objects fail to produce a visible outline and go undetected.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout rv">
+      <div class="callout-label">Parameter Tuning</div>
+      <p>
+        MOG2's <em>varThreshold</em> was increased from default 16 to <em>80</em> — reducing false detections
+        from reflectors and road markings at the cost of slightly lower sensitivity. Detection zone was restricted
+        to road areas only. The final model is <em>significantly more stable than the early prototype</em>,
+        with greatly improved real-world recognition accuracy.
+      </p>
+    </div>
+  </div>
+
+  <!-- 05 RESULT -->
+  <div class="proj-section rv" id="result">
+    <div class="section-eyebrow">05 — Outcome</div>
+    <h2>Result <span class="m">& impact</span></h2>
+
+    <div class="result-highlight rv">
+      <div class="big">🏆</div>
+      <h3>Big Data Competition Winner</h3>
+      <p>The project won 3rd place in a Big Data competition for combining GIS spatial analysis with
+      real-time object detection to address a genuine public safety problem — and delivering
+      a technically feasible, data-backed solution.</p>
+    </div>
+
+    <h3>Utilization Plan & Expected Effect</h3>
+    <p>
+      The system applies to any alley where vehicles, motorcycles, bicycles, and pedestrians share space.
+      Highest impact is expected at <em>three-way and four-way alley intersections</em> where driver
+      visibility is near zero.
+    </p>
+    <p>
+      By leveraging <em>existing CCTV infrastructure</em> and adding warning lights at intersections,
+      the system warns both directions simultaneously when an approaching object is detected within
+      a threshold distance — stopping potential collisions before they happen.
+      This is expected to <em>significantly reduce Gangseo-gu's alley accident rate</em> without major
+      new infrastructure investment.
+    </p>
+  </div>
+
+  <!-- 06 REFERENCES -->
+  <div class="proj-section rv" id="refs">
+    <div class="section-eyebrow">06 — References</div>
+    <h2>Sources <span class="m">& references</span></h2>
+    <div class="refs">
+      <div class="ref-item">[1] SFMOG: Super Fast MOG Based Background Subtraction Algorithm — Seokbin Song, Jinheon Kim</div>
+      <div class="ref-item">[2] Computer Vision and Machine Learning with OpenCV4 — Gilbot, 2019</div>
+      <div class="ref-item">[3] <a href="https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html" target="_blank">OpenCV Python Tutorials — docs.opencv.org ↗</a></div>
+      <div class="ref-item">Data: TAAS Traffic Accident Analysis System (2016–2020) · Seoul Open Data Plaza — Population Density (2020)</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── FOOTER CTA ─────────────────────────────────── -->
+<div class="proj-footer">
+  <p>Formatted and coded by Ryan (Jeonghyeon) Lee.</p>
+  <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+    <a href="index.html#projects" class="ba f">← All Projects</a>
+    <a href="index.html#chat" class="ba o">💬 Ask Me About It</a>
+  </div>
+</div>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+  }, { threshold: .08 });
+  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
